@@ -11,10 +11,19 @@ export type NeuronMemory = {
 };
 
 export type Neuron = {
-  id: number;
-  state: 'active' | 'sleeping';
-  memory: Pick<NeuronMemory, 'totalActivations' | 'learnedPatterns'>;
-  connections: unknown[];
+  id: string;
+  state: NeuronState;
+  x: number;
+  y: number;
   membranePotential: number;
+  threshold: number;
+  restingPotential: number;
+  isFiring: boolean;
+  memory: Pick<NeuronMemory, 'totalActivations' | 'learnedPatterns'>;
+  activityCounter: number;
+  lastActivityTime: number;
+  inactivityThreshold: number;
+  connections: unknown[];
+  incomingWeights: Map<string, number>;
   calculateImportance: () => number;
 };
