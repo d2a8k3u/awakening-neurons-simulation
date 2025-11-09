@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "A small project built for learning React and experimenting with its core concepts.",
+  "homepage": "https://d2a8k3u.github.io/awakening-neurons-simulation/",
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
