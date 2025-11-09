@@ -22,6 +22,7 @@
     "lucide-react": "^0.553.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "styled-components": "^6.1.19",
     "tailwind-classify": "^0.1.0",
     "tailwindcss": "^4.1.17",
     "web-vitals": "^2.1.4"
