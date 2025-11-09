@@ -2,7 +2,7 @@ import { Neuron } from './Neuron';
 import { SleepManager } from './SleepManager';
 
 export default class NetworkSimulation {
-  private readonly neurons: Neuron[];
+  public readonly neurons: Neuron[];
   private sleepManager: SleepManager;
 
   constructor(numNeurons: number = 150) {
@@ -73,12 +73,15 @@ export default class NetworkSimulation {
   }
 
   reset(): void {
+    const now = Date.now();
     this.neurons.forEach((neuron) => {
       neuron.state = 'active';
       neuron.memory.totalActivations = 0;
       neuron.memory.shortTermHistory = [];
       neuron.memory.learnedPatterns = [];
+      neuron.memory.lastActiveTime = now;
       neuron.activityCounter = 0;
+      neuron.lastActivityTime = now;
       neuron.membranePotential = -70;
       neuron.isFiring = false;
     });
