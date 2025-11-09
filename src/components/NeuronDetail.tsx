@@ -10,7 +10,7 @@ interface NeuronDetailProps {
   onWake: () => void;
 }
 
-const NeuronDetail: FC<NeuronDetailProps> = ({ neuron, onSleep, onWake }) => {
+export const NeuronDetail: FC<NeuronDetailProps> = ({ neuron, onSleep, onWake }) => {
   const detailItems = useNeuronDetails(neuron);
   const isActive = neuron.state === 'active';
 
@@ -51,4 +51,4 @@ const NeuronDetail: FC<NeuronDetailProps> = ({ neuron, onSleep, onWake }) => {
   );
 };
 
-export default NeuronDetail;
+NeuronDetail.displayName = 'NeuronDetail';
