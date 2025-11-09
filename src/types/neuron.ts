@@ -9,3 +9,12 @@ export type NeuronMemory = {
   learnedPatterns: number[];
   lastActiveTime: number;
 };
+
+export type Neuron = {
+  id: number;
+  state: 'active' | 'sleeping';
+  memory: Pick<NeuronMemory, 'totalActivations' | 'learnedPatterns'>;
+  connections: unknown[];
+  membranePotential: number;
+  calculateImportance: () => number;
+};
