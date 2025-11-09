@@ -1,4 +1,4 @@
-import type { SleepManagerStats } from '@/types/sleepManager.ts';
+import type { SleepManagerStats } from '@/types/stats.ts';
 import type { Neuron } from './Neuron';
 
 export class SleepManager {
