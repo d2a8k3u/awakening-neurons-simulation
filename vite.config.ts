@@ -5,8 +5,8 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: 'awakening-neurons-simulation',
   plugins: [react(), tailwindcss()],
+  base: '/awakening-neurons-simulation/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
