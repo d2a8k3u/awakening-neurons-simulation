@@ -2,15 +2,17 @@ import { NeuronLegend } from '@/components/NeuronLegend';
 import type { Neuron } from '@/engine/Neuron';
 import { useCanvas } from '@/hooks/useCanvas';
 import { drawAll, toScreen } from '@/lib/canvasHelpers';
+import { selectSelectedNeuron, selectSetSelectedNeuron, useSelectedNeuronStore } from '@/stores/selectedNeuronStore';
 import React from 'react';
 
 type CanvasProps = {
   neurons: Neuron[];
-  selectedNeuron: Neuron | null;
-  onNeuronClick: (neuron: Neuron | null) => void;
 };
 
-export const Canvas = ({ neurons, selectedNeuron, onNeuronClick }: CanvasProps) => {
+export const Canvas = ({ neurons }: CanvasProps) => {
+  const selectedNeuron = useSelectedNeuronStore(selectSelectedNeuron);
+  const setSelectedNeuron = useSelectedNeuronStore(selectSetSelectedNeuron);
+
   const canvasRef = useCanvas(
     (ctx, width, height) => drawAll(ctx, width, height, neurons, selectedNeuron),
     [neurons, selectedNeuron],
@@ -33,7 +35,7 @@ export const Canvas = ({ neurons, selectedNeuron, onNeuronClick }: CanvasProps) 
         break;
       }
     }
-    onNeuronClick(clicked);
+    setSelectedNeuron(clicked);
   };
 
   return (
