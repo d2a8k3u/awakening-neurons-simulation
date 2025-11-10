@@ -3,6 +3,7 @@ import { Canvas } from '@/components/Canvas';
 import { Sidebar } from '@/components/Sidebar';
 import NetworkSimulation from '@/engine/NetworkSimulation';
 import type { Neuron } from '@/engine/Neuron.ts';
+import { selectSelectedNeuron, useSelectedNeuronStore } from '@/stores/selectedNeuronStore';
 import type { StateStats } from '@/types/stats.ts';
 import { Brain } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -26,9 +27,9 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [neurons, setNeurons] = useState<Neuron[]>([]);
   const [stats, setStats] = useState<StateStats>(INITIAL_STATS);
-  const [selectedNeuron, setSelectedNeuron] = useState<Neuron | null>(null);
   const [autoOptimize, setAutoOptimize] = useState(true);
   const animationFrameRef = useRef<number | null>(null);
+  const selectedNeuron = useSelectedNeuronStore(selectSelectedNeuron);
 
   const updateSimulationState = useCallback(() => {
     setNeurons([...simulation.neurons]);
@@ -78,17 +79,12 @@ function App() {
     setIsRunning(false);
     simulation.reset();
     updateSimulationState();
-    setSelectedNeuron(null);
   }, [simulation, updateSimulationState]);
 
   const handleOptimize = useCallback(() => {
     simulation.optimize();
     updateSimulationState();
   }, [simulation, updateSimulationState]);
-
-  const handleNeuronClick = useCallback((neuron: Neuron | null) => {
-    setSelectedNeuron(neuron);
-  }, []);
 
   const handleToggleAutoOptimize = useCallback(() => {
     setAutoOptimize((prev) => !prev);
@@ -114,7 +110,6 @@ function App() {
         stats={stats}
         isRunning={isRunning}
         autoOptimize={autoOptimize}
-        selectedNeuron={selectedNeuron}
         onStart={handleStart}
         onReset={handleReset}
         onOptimize={handleOptimize}
@@ -133,11 +128,7 @@ function App() {
           <h1>Awakening Neurons - Interactive visualization</h1>
         </div>
 
-        <Canvas
-          neurons={neurons}
-          onNeuronClick={handleNeuronClick}
-          selectedNeuron={selectedNeuron}
-        />
+        <Canvas neurons={neurons} />
       </div>
     </div>
   );

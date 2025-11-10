@@ -1,5 +1,5 @@
 import { InfoBox } from '@/components/InfoBox.tsx';
-import type { Neuron } from '@/types/neuron.ts';
+import { selectSelectedNeuron, useSelectedNeuronStore } from '@/stores/selectedNeuronStore';
 import type { StateStats } from '@/types/stats.ts';
 import type { FC } from 'react';
 import { Controls } from './Controls';
@@ -10,7 +10,6 @@ type SidebarProps = {
   stats: StateStats;
   isRunning: boolean;
   autoOptimize: boolean;
-  selectedNeuron: Neuron | null;
 };
 
 type SidebarCallbacks = {
@@ -26,7 +25,6 @@ export const Sidebar: FC<SidebarProps & SidebarCallbacks> = ({
   stats,
   isRunning,
   autoOptimize,
-  selectedNeuron,
   onStart,
   onReset,
   onOptimize,
@@ -34,6 +32,8 @@ export const Sidebar: FC<SidebarProps & SidebarCallbacks> = ({
   onSleepNeuron,
   onWakeNeuron,
 }) => {
+  const selectedNeuron = useSelectedNeuronStore(selectSelectedNeuron);
+
   return (
     <aside
       className="sidebar"
